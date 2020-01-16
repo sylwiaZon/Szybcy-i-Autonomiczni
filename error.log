@@ -1,0 +1,4 @@
+[16/Jan/2020:13:03:22 +0100] access to /hello:service failed for 127.0.0.1, reason: 
+"httpd_file: Can't access .//hello:service: File not found"
+[16/Jan/2020:13:03:22 +0100] access to /favicon.ico failed for 127.0.0.1, reason: 
+"httpd_file: Can't access .//favicon.ico: File not found"
