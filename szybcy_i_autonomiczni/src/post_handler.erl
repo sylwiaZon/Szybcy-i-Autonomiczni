@@ -1,32 +1,18 @@
 -module(post_handler).
--behavior(cowboy_rest).
+-behavior(cowboy_handler).
 
-%% REST Callbacks
--export([init/2]).
--export([allowed_methods/2]).
--export([content_types_provided/2]).
+-export([init/2, handle/2, terminate/3]).
 
-%% Callback Callbacks
--export([hello_from_json/2]).
+init(Req0, State) -> {ok, Req0, State}.
 
-init(Req, State) ->
-    {cowboy_rest, Req, State}.
+handle(Req, State) ->
+	{Method, ReqM} = cowboy_req:method(Req),
+	case Method of
+		<<"POST">> -> 
+			Body = <<"<h1>This is a response for POST</h1>">>,
+            {ok, Req3} = cowboy_req:reply(200, [], Body, Req3),
+            {ok, Req3, State}
+	end.
 
-allowed_methods(Req, State) ->  
-    {[<<"GET">>], Req, State}.
+terminate(Reason, Req, State) -> ok.
 
-content_types_provided(Req, State) ->
-    {[
-        {{<<"application">>, <<"json">>, []}, hello_from_json}
-    ], Req, State}.
-
-hello_from_json(Req, State) ->
-    case middleware:auth(Req) of
-        {true, User, Req1} ->
-            Fname = maps:get(fname, User),
-            Lname = maps:get(lname, User),
-            Message = [hello,  <<"Good day, ", Fname/binary, " ", Lname/binary>>];
-        {false, Req1} ->
-            Message = [hello, <<"Good day">>]
-    end,
-    {jiffy:encode(Message), Req1, State}.
