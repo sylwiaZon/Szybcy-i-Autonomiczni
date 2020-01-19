@@ -1,5 +1,5 @@
 %% coding: utf-8
-%% script generated at {2020,1,17} {16,22,55}
+%% script generated at {2020,1,19} {13,15,2}
 {script,
     {"szybcy_i_autonomiczni_release","1"},
     [{preLoaded,
@@ -81,7 +81,8 @@
           cowboy_sup,cowboy_tls,cowboy_tracer_h,cowboy_websocket]},
      {path,["$ROOT/lib/szybcy_i_autonomiczni-0.1.0/ebin"]},
      {primLoad,
-         [init_handler,szybcy_i_autonomiczni_app,szybcy_i_autonomiczni_sup]},
+         [get_handler,post_handler,szybcy_i_autonomiczni_app,
+          szybcy_i_autonomiczni_sup]},
      {path,["$ROOT/lib/sasl-3.1.1/ebin"]},
      {primLoad,
          [alarm_handler,erlsrv,format_lib_supp,misc_supp,rb,rb_format_supp,
@@ -305,7 +306,7 @@
                    {vsn,"0.1.0"},
                    {id,[]},
                    {modules,
-                       [init_handler,szybcy_i_autonomiczni_app,
+                       [get_handler,post_handler,szybcy_i_autonomiczni_app,
                         szybcy_i_autonomiczni_sup]},
                    {registered,[szybcy_i_autonomiczni_sup]},
                    {applications,[kernel,stdlib,cowboy]},
