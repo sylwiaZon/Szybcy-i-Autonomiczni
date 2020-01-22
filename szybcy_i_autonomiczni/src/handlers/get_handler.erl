@@ -41,7 +41,11 @@ router(Req, State) ->
             io:format("~p",[V]),
             get(fifoQueue) ! {V, put},
             erase(uid),
-            put(uid, UID + 1),
+            if UID >= 576460752303423488 ->
+                put(uid, 0);
+            true ->
+                put(uid, UID + 1)
+            end,
             Body = mochijson2:encode({struct,[{uid,UID}]}),
             Req_ = cowboy_req:reply(200, #{
                 <<"content-type">> => <<"application/json">>

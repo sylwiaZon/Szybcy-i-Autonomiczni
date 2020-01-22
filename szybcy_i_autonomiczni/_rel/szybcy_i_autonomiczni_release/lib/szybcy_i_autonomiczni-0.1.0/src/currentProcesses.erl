@@ -7,7 +7,6 @@
 process(Counter) ->
     receive
         {{V, UID}, put} ->
-            io:format("COUNTeR ~p ~n",[Counter]),
             if 
                 Counter < 5 ->
                     spawn(physics, initCalculations, [V, UID]),
