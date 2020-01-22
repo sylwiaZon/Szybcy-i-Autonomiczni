@@ -7,9 +7,7 @@
 processesQueue(Value) -> 
     receive 
         {V, put} ->
-            io:format("NIE DZIALAM! ~p", [Value]),
             get(currentProcesses) ! {V, put},
-            io:format("NIE DZIALAM BARDZO! ~p", [Value]),
             processesQueue(Value);
         {V, nope} -> 
             processesQueue(append(Value, [V]));

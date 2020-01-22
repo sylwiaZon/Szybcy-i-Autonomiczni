@@ -7,7 +7,7 @@
 process(Counter) ->
     receive
         {{V, UID}, put} ->
-            io:format("\n \n \n ~p \n \n \n TUTUTUTUUTUTUU",[Counter]),
+            io:format("COUNTeR ~p ~n",[Counter]),
             if 
                 Counter < 5 ->
                     spawn(physics, initCalculations, [V, UID]),
@@ -19,6 +19,6 @@ process(Counter) ->
                     process(Counter)
             end;
         {done} -> 
-            get(fifoQueue) ! {get, self()},
+            get(fifoQueue) ! {get},
             process(Counter - 1)
     end.

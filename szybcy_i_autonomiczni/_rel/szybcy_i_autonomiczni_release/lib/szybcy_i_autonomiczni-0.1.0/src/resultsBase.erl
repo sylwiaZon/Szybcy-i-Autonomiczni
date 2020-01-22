@@ -9,18 +9,15 @@
 resultsBase(Value) -> 
     receive 
         {{V, UID}, put} ->
-            io:format("\n \n \n ~p \n \n \n DUUUUUUUUUUUUUUUPA",[{V, UID}]),
             Val = append(UID, V, Value),
             resultsBase(Val);
         {UID, get, RPID} -> 
-            io:format("\n \n \n ~p \n \n \n DUUUUUUUUUUUUUUUPA",[UID]),
-            try 
-                {Val, Dict} = take(UID, Value),
-                RPID ! { resultResponse, Val },
-                resultsBase(Dict)
-            catch
-                exit: _ ->    
-                    RPID ! { resultResponse, "Nope" },
+            case take(UID, Value) of
+                {Val, Dict} -> 
+                    RPID ! { resultResponse, Val },
+                    resultsBase(Dict);
+            error ->    
+                    RPID ! { resultResponse, "0" },
                     resultsBase(Value)      
             end
     end.

@@ -97,7 +97,7 @@ tab.reverse();
 	console.log(data);
 	
 	var Http = new XMLHttpRequest();
-	var url='localhost:8085/getRoute';
+	var url='http://localhost:8085/getRoute';
 	Http.open("POST", url,true);
 	Http.send(tab);
 
@@ -139,7 +139,7 @@ var get = document.getElementById('get');
 get.addEventListener("click",function(){
 	
 	var Http = new XMLHttpRequest();
-	var url='localhost:8085/getRoute?id='+uid;
+	var url='http://localhost:8085/getRoute?id='+uid;
 	Http.open("GET", url);
 	Http.send(data);
 

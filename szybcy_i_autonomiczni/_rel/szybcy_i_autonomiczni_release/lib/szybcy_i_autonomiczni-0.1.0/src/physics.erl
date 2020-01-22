@@ -89,8 +89,7 @@ getOutput(Input)->
 
 initCalculations(Input, UID)->
 	Out = getOutput(Input),
-	%V = mochijson2:encode({struct,[{trasa,Out}]}),
-	io:format("\n \n \n ~p \n \n DUUUUUUUUUUUUUUUUUUUUPPPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAa",[{Out, UID}]),
+	timer:sleep(15000),
 	get(currentProcesses) ! {done},
 	get(resultsBase) ! {{Out, UID}, put}.
     
