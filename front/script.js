@@ -1,6 +1,7 @@
 window.addEventListener("load", function(){
 var tarcza = document.getElementById('predkosciomierz');
 var s =document.getElementById('s');
+var uid;
 if(s.value==''){
 		s.value=0;
 	}
@@ -86,24 +87,27 @@ send.addEventListener("click",function(){
 		tab.push([0,parseFloat(max.value)]);
 	}
 
+tab.sort( function(a,b) {
+   return b[1]-a[1];
+  });
+tab.reverse();
 	console.log(tab);
-	var data = { "trasa" :tab}
+	var data = {tab}
 
-	console.log(data.trasa);
+	console.log(data);
 	
 	var Http = new XMLHttpRequest();
 	var url='localhost:8085/getRoute';
 	Http.open("POST", url,true);
-	Http.send(data);
+	Http.send(tab);
 
 	Http.onreadystatechange = (e) => {
 	  console.log(Http.responseText)
+	  uid = JSON.parse(Http.responseText).uid;
 	}
 	
 })
-function compare(a,b){
-	return a[1]<b[1];
-}
+
 
 function animation(tab){
 	
@@ -113,7 +117,9 @@ function animation(tab){
 		var interv = setInterval(function(){
 			
 			var speed = document.getElementById('speed');
-		
+			var inf = document.getElementById("informacja");
+			inf.innerHTML ="Jesteś na "+ parseFloat(tab[i][1])/1000 + "km";
+
 			var x = tab[i][0]+60;		
 			var indicator = document.getElementById('indicator');
 				indicator.className='indicator';
@@ -123,7 +129,6 @@ function animation(tab){
 			speed.innerHTML = tab[i][0] +"km/h";
 			i+=1;
 			
-
 		},1000)
 		//x = (tab.lenght+1)*1000;
 		//setTimeout(function(){clearInterval(interv)},x);
@@ -132,19 +137,20 @@ function animation(tab){
 
 var get = document.getElementById('get');
 get.addEventListener("click",function(){
-	/*
+	
 	var Http = new XMLHttpRequest();
-	var url='localhost:8085/getRoute?id=1';
+	var url='localhost:8085/getRoute?id='+uid;
 	Http.open("GET", url);
 	Http.send(data);
 
 	Http.onreadystatechange = (e) => {
 	  console.log(Http.responseText)
+
 	  //dodaj animacje
 	}
-	*/
+	
 	//animacja
-	var tab2 = [[0,0.0],[50,0.1],[80,0.2],[10,0.3],[100,0.4],[100,0.5],[100,0.6],[60,0.7],[40,0.8],[40,0.9],[0,1.0]];
+	var tab2 = [[0,0],[50,100],[80,200],[10,300],[100,400],[100,500],[100,600],[60,700],[40,800],[40,900],[0,1000]];
 	tab2.sort( function(a,b) {
    return b[1]-a[1];
   });
