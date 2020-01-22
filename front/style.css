@@ -1,0 +1,145 @@
+body{
+	margin:0;
+
+	
+}
+.view-column {
+display: inline-block;
+width: 60%;
+height: 100%;
+min-height: 200px;
+/* padding: 120px 50px 60px 50px; */
+float: right;
+margin-top: 100px;
+margin-top: 100px;
+/* right: 0; */
+text-align: center;
+}
+.form-column {
+display: inline-block;
+width: 40%;
+position: relative;
+height: 100%;
+/* padding: 20px; */
+text-align: center;
+margin: 0;
+float: left;
+margin: 0;
+}
+.miarka {
+	width: 7px;
+	height: 150px;
+	/* background: black; */
+	border-bottom: solid 30px black;
+	position: absolute;
+	left: 25%;
+	top: 50%;
+	transform-origin: top center;
+}
+
+.indicator{
+	height: 130px;
+	width: 5px;
+	background: red;
+	position: absolute;
+	left: 25%;
+	top: 30%;
+	transform-origin: top center;
+	transform: rotate(60deg);
+	transition-delay: all .5s; 
+	z-index: 10
+
+}
+#predkosciomierz{
+
+position: relative;
+display: inline-block;
+margin-top: 120px;
+/* float: left; */
+}
+#informacja {
+position: relative;
+display: inline-block;
+/* bottom: 0; */
+padding: 20px;
+background: white;
+border: solid 1px black;
+/* left: 0%; */
+float: left;
+height: 120px;
+}
+#speed {
+	width: 150px;
+	/* height: 100px; */
+	padding: 40px 0 20px 0;
+	background: silver;
+	text-align: center;
+	border-radius: 50% 50% 0 0;
+	position: absolute;
+	top: 60%;
+	left: calc(25% - 75px);
+}
+
+.planner {
+background: url('./navigate.png');
+background-size: 100px 100px;
+background-position: top right;
+background-repeat: no-repeat;
+text-align: left;
+border: solid 1px black;
+width: 80%;
+display: inline-block;
+padding: 20px;
+background-color: #def;
+}
+.planner p{
+	display: inline-block;
+
+}
+input[type='text'] {
+width: 50px;
+}
+.app {
+position: absolute;
+z-index: 100000;
+margin-top: 400px;
+left: 0;
+top: 0;
+width: 100%;
+}
+.container{
+  position:relative;
+  }
+.car {
+    position: absolute;
+    z-index: 1;
+    top: 175px;
+    right:-50px;
+	animation:run 10s infinite linear;
+}
+
+.car2 {
+    top: 235px;
+  right:50px;
+      -webkit-animation-duration: 20s; 
+    animation-duration: 20s;
+}
+.car-body img{width:200px;}
+.tair{
+  position:absolute;
+}.tair img{width:40px;animation:rotate 3s infinite linear;position:relative;}
+.tair1{  
+  left:35px;
+  top:106px;
+}
+.tair2{  
+  left:128px;
+  top:106px;
+}
+@keyframes rotate{
+  100% {transform: rotate(-360deg);}
+}
+
+@keyframes run{
+  100% {transform:translateX(-1200px);}
+}

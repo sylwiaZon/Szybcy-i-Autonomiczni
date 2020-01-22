@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Szybcy i autonomiczni </title>
+	<link rel="stylesheet" href="style.css" />
+
+	<script src="script.js"></script>
+
+</head>
+<body>
+	<div class="app">
+	<div class="view-column">
+
+		<div id="predkosciomierz">
+			<div id="indicator" class='indicator'></div>
+			<div id="speed">0km/h</div>
+		</div>
+		<div id="informacja">
+			Jesteś na x km. Pozostało y kilometrów. 
+
+		</div>
+	</div>
+
+	<div class="form-column">
+		
+		<div class="planner">
+			<input id='s'/>
+			<h1>Plan trasy</h1>
+			<p> Długość całej trasy: <input id="trip-length" type="text" name="trip-length" required> km</p><br/>
+			<p> Znak 'stop' na <input id="stop" type="text" name="stop" > km trasy</p><br/>
+			<p> Próg zwalniający na <input id="ramp" type="text" name="ramp" > km trasy</p><br/>
+			<p> Przejscie dla pieszych na <input id="walkway" type="text" name="walkway" > km trasy<br/>
+					<input id="empty" type="radio" name="przejscie" value="empty" checked> puste<br>
+					<input id="human" type="radio" name="przejscie" value="human"> przechodzący pieszy<br>
+			</p>
+			
+			<p> Roboty drogowe na <input id="roadworks" type="text" name="roadworks"> km do <input id="roadworks-end" type="text" name="roadworks-end">km trasy </p><br>
+			
+			<p> Teren niezabudowany na <input id="unbuilt" type="text" name="unbuilt"> km do <input id="unbuilt-end" type="text" name="unbuilt-end">km trasy </p><br>
+
+
+			<p> Ograniczenie prędkości do <input id="max-speed" type="text" name="max-speed">km/h na <input id="max-speed-start" type="text" name="max-speed-start"> km do <input id="max-speed-end" type="text" name="max-speed-end">km trasy </p><br>
+<!--
+			<p> Pogoda<br/>
+					<input type="checkbox" name="weather" value="rain"> ślisko<br>
+					<input type="checkbox" name="weather" value="hu<man"> słaba widoczność<br>
+			</p>-->
+			<Button id="send">Wyślij trasę do serwera</Button>
+			<Button id="get">Pobierz gotowa trase</Button>
+			
+			
+
+		</div>
+	</div>
+	
+
+</div>
+<div class="container">
+  <div class="car car1">
+    <div class="car-body">
+      <img src="car.png" alt="" />
+    </div>
+    <div class="tair1 tair">
+      <img src="tyre.png" alt="" />
+    </div>
+    <div class="tair2 tair">
+      <img src="tyre.png" alt="" />
+    </div>
+  </div>
+  <div class="car car2">
+    <div class="car-body">
+      <img src="car3.png" alt="" />
+    </div>
+    <div class="tair1 tair">
+      <img src="tyre.png" alt="" />
+    </div>
+    <div class="tair2 tair">
+      <img src="tyre.png" alt="" />
+    </div>
+  </div>
+  <div class="road"><img src="road.jpg" alt="" /></div>
+
+</div>
+</body>
+</html>
