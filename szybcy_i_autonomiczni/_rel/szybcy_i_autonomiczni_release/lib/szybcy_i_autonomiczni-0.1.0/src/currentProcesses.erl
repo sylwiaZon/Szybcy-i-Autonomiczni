@@ -1,18 +1,24 @@
 -module(currentProcesses).
+-compile({no_auto_import,[get/1]}).
+-import(persistent_term,[get/1]).
 -import(physics,[initCalculations/2]).
--export([process/2]).
+-export([process/1]).
 
-process(Counter, BPID) ->
+process(Counter) ->
     receive
-        {V, put, QPID} ->
+        {{V, UID}, put} ->
+            io:format("\n \n \n ~p \n \n \n TUTUTUTUUTUTUU",[Counter]),
             if 
                 Counter < 5 ->
-                    spawn(physics, initCalculations, [V, BPID,0]),
-                    process(Counter + 1, BPID);
+                    spawn(physics, initCalculations, [V, UID]),
+                    process(Counter + 1);
                 Counter >= 5 ->
-                    QPID ! {V, nope}
+                    get(fifoQueue) ! {{V, UID}, nope},
+                    process(Counter);
+                true ->
+                    process(Counter)
             end;
-        {done, QPID} -> 
-            QPID ! {get, self()},
-            process(Counter - 1, BPID)
+        {done} -> 
+            get(fifoQueue) ! {get, self()},
+            process(Counter - 1)
     end.

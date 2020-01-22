@@ -1,28 +1,26 @@
 -module(resultsBase).
--import(dict, [take/2, erase/2, append/3]).
--export([resultsBase/1, processGet/3, deleteFromBase/4]).
+-compile({no_auto_import,[get/1]}).
+-compile({no_auto_import,[put/2]}).
+-compile({no_auto_import,[erase/1]}).
+-import(persistent_term,[get/1, put/2, erase/1]).
+-import(dict, [take/2, erase/2, append/3, fetch_keys/1]).
+-export([resultsBase/1]).
 
 resultsBase(Value) -> 
     receive 
-        {V, UID, put} ->
-            resultsBase(append(UID, V, Value));
-        {UID, get} -> 
-            processGet(Value, UID, self());
-        {changeBase, V} -> 
-            resultsBase(V)
-        end.
-            
-
-processGet(Value, UID, RPID) -> 
-    try
-        Val =  take(UID, Value),
-        deleteFromBase(Val, Value, UID, RPID)
-    catch
-       exit:_ -> <<"Try again later">>
+        {{V, UID}, put} ->
+            io:format("\n \n \n ~p \n \n \n DUUUUUUUUUUUUUUUPA",[{V, UID}]),
+            Val = append(UID, V, Value),
+            resultsBase(Val);
+        {UID, get, RPID} -> 
+            io:format("\n \n \n ~p \n \n \n DUUUUUUUUUUUUUUUPA",[UID]),
+            try 
+                {Val, Dict} = take(UID, Value),
+                RPID ! { resultResponse, Val },
+                resultsBase(Dict)
+            catch
+                exit: _ ->    
+                    RPID ! { resultResponse, "Nope" },
+                    resultsBase(Value)      
+            end
     end.
-       
-
-deleteFromBase(Val, Value, UID, RPID) -> 
-    RPID ! {changeBase, erase(UID, Value)},
-    Val.
-
