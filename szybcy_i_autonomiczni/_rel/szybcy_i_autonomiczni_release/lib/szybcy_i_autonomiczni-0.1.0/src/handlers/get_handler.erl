@@ -10,7 +10,7 @@ init(Req, State) ->
     {cowboy_rest, Req, State}.
 
 allowed_methods(Req, State) ->
-    {[<<"GET">>,<<"POST">>], Req, State}.
+    {[<<"GET">>,<<"POST">>,<<"OPTIONS">>], Req, State}.
 
 content_types_accepted(Req, State) ->
     {[{<<"application/json">>, router}], Req, State}.
@@ -24,7 +24,6 @@ router(Req, State) ->
             Url = cowboy_req:parse_qs(Req),
             {_,U} = keyfind(<<"id">>, 1, Url),
             UID = list_to_integer(binary_to_list(U)),
-            io:format("~p",[UID]),
             get(resultsBase) ! {UID, get, self()},
             receive
                 {  resultResponse, Resp } -> 
@@ -38,7 +37,6 @@ router(Req, State) ->
             {_, Values, _} = cowboy_req:read_body(Req),
             UID = get(uid),
             V = {mochijson2:decode(Values), UID},
-            io:format("~p",[V]),
             get(fifoQueue) ! {V, put},
             erase(uid),
             if UID >= 576460752303423488 ->
@@ -50,7 +48,10 @@ router(Req, State) ->
             Req_ = cowboy_req:reply(200, #{
                 <<"content-type">> => <<"application/json">>
             }, Body, Req),
-            {ok, Req_, State}
+            {ok, Req_, State};
+        <<"OPTIONS">> ->
+            {ok, ReqFinal} = cowboy_req:reply(200, Req),
+            {halt, ReqFinal}
     end.
 
 terminate(_Reason, _Req, _State) -> ok.

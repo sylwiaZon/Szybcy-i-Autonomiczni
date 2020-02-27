@@ -16,8 +16,8 @@ resultsBase(Value) ->
                 {Val, Dict} -> 
                     RPID ! { resultResponse, Val },
                     resultsBase(Dict);
-            error ->    
-                    RPID ! { resultResponse, "0" },
+                error ->    
+                    RPID ! { resultResponse, "" },
                     resultsBase(Value)      
             end
     end.

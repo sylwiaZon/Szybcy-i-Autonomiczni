@@ -97,13 +97,17 @@ tab.reverse();
 	console.log(data);
 	
 	var Http = new XMLHttpRequest();
-	var url='http://localhost:8085/getRoute';
-	Http.open("POST", url,true);
+		
+	var url='http://127.0.0.1:8085';
+		
+	Http.open("POST", url);
+	Http.setRequestHeader('Content-Type', 'application/json')
 	Http.send(tab);
 
 	Http.onreadystatechange = (e) => {
 	  console.log(Http.responseText)
-	  uid = JSON.parse(Http.responseText).uid;
+	  uid = JSON.parse(Http.response).uid;
+	  console.log(uid);
 	}
 	
 })
@@ -140,17 +144,21 @@ get.addEventListener("click",function(){
 	
 	var Http = new XMLHttpRequest();
 	var url='http://localhost:8085/getRoute?id='+uid;
+	Http.setRequestHeader('Content-Type', 'application/json'),
+	//Access-Control-Allow-Origin: http://localhost:3000
+//	Http.setRequestHeader('Access-Control-Allow-Origin', 'http://localhost:8080'),
 	Http.open("GET", url);
 	Http.send(data);
 
 	Http.onreadystatechange = (e) => {
 	  console.log(Http.responseText)
-
-	  //dodaj animacje
+	  tab = JSON.parse(Http.response).info;
+	  animation(tab);
+	  		
 	}
 	
 	//animacja
-	var tab2 = [[0,0],[50,100],[80,200],[10,300],[100,400],[100,500],[100,600],[60,700],[40,800],[40,900],[0,1000]];
+	var tab2 = [[0,0.0],[50,0.1],[80,0.2],[10,0.3],[100,0.4],[100,0.5],[100,0.6],[60,0.7],[40,0.8],[40,0.9],[0,1.0]];
 	tab2.sort( function(a,b) {
    return b[1]-a[1];
   });
