@@ -20,7 +20,7 @@ kilometersPerHoursTometersPerSeconds(KmH)->
 
 
 addBrakingPositions([{Limit1, _},{Limit2, Distance2}|T],EmptyList) -> 
-		Acc = 4,
+		Acc = 5,
 		NewDistance = round(startOfBrakingPosition(Acc,
 			kilometersPerHoursTometersPerSeconds(Limit1),
 			kilometersPerHoursTometersPerSeconds(Limit2),
